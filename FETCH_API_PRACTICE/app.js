@@ -16,4 +16,45 @@ function mostrarDatos(){
     })
 }
 
-mostrarDatos()
+fetch("http://localhost:3000/contactos", {
+    method: "POST",                              // Método HTTP
+    headers: {
+        "Content-Type": "application/json",      // Indicar que enviamos JSON
+    },
+    body: JSON.stringify({ nombre: "...", telefono: "..." })  // Los datos
+});
+
+
+
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault()
+
+    let nombre = document.getElementById("nombre").value;
+    console.log(nombre)
+    
+    let telefono = document.getElementById("telefono").value;
+    console.log(telefono)
+
+    fetch("http://localhost:3000/contactos", {
+        method: "POST",                              // Método HTTP
+        headers: {
+            "Content-Type": "application/json",      // Indicar que enviamos JSON
+        },
+        body: JSON.stringify( 
+            { 
+            nombre: nombre, 
+            telefono: telefono,
+            }
+        )  // Los datos
+    })
+
+    .then(response => response.json())
+    .then((data) =>
+        mostrarDatos()
+    )
+
+});
+
+
